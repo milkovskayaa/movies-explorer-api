@@ -10,5 +10,11 @@
     "lint": "npx eslint ."
   },
   "author": "tatyana malceva",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongoose": "^8.1.0",
+    "nodemon": "^3.0.3",
+    "validator": "^13.11.0"
+  }
 }
