@@ -12,7 +12,9 @@
   "author": "tatyana malceva",
   "license": "ISC",
   "dependencies": {
+    "celebrate": "^15.0.3",
     "express": "^4.18.2",
+    "joi": "^17.12.0",
     "mongoose": "^8.1.0",
     "validator": "^13.11.0"
   },
