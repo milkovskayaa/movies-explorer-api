@@ -14,15 +14,6 @@ app.use(helmet());
 
 mongoose.connect('mongodb://127.0.0.1:27017/bitfilmsdb').then(() => {});
 
-// ВРЕМЕННОЕ РЕШЕНИЕ
-app.use((req, res, next) => {
-  req.user = {
-    _id: '65b4f32c5a3339dba6e1c007', // вставьте сюда _id созданного в предыдущем пункте пользователя
-  };
-
-  next();
-});
-
 app.use(router);
 
 app.use(errors());
