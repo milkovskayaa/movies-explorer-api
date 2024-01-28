@@ -3,9 +3,10 @@ const { celebrate, Joi } = require('celebrate');
 const { userRouter } = require('./users');
 const { movieRouter } = require('./movies');
 const { login, createUser } = require('../controllers/users');
+const { auth } = require('../middlewares/auth');
 
-router.use('/users', userRouter);
-router.use('/movies', movieRouter);
+router.use('/users', auth, userRouter);
+router.use('/movies', auth, movieRouter);
 
 router.post('/signin', celebrate({
   body: Joi.object().keys({
