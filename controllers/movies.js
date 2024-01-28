@@ -1,7 +1,7 @@
 const Movie = require('../models/movie');
-const BadRequestError = require('../errors/bad-request');
-const NotFoundError = require('../errors/not-found');
-const ForbiddenError = require('../errors/forbidden');
+const { BadRequestError } = require('../errors/bad-request');
+const { NotFoundError } = require('../errors/not-found');
+const { ForbiddenError } = require('../errors/forbidden');
 
 // возвращает все сохранённые текущим пользователем фильмы
 const getMovies = (req, res, next) => {
