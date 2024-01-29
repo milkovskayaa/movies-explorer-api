@@ -2,7 +2,6 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const User = require('../models/user');
 
-const BadRequestError = require('../errors/bad-request');
 const ConflictError = require('../errors/conflict');
 const NotFoundError = require('../errors/not-found');
 const UnauthorizedError = require('../errors/unauthorized');
@@ -39,13 +38,7 @@ const updateProfile = (req, res, next) => {
       }
       return res.status(200).send(user);
     })
-    .catch((err) => {
-      if (err.name === 'ValidationError') {
-        next(BadRequestError('Введены некорректные данные'));
-        return;
-      }
-      next(err);
-    });
+    .catch((err) => next(err));
 };
 
 // регистрация
