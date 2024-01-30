@@ -15,14 +15,14 @@ const {
   DB_URL = process.env.DB_URL || 'mongodb://127.0.0.1:27017/bitfilmsdb',
 } = process.env;
 
+mongoose.connect(DB_URL).then(() => {});
+
 const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(requestLogger);
 app.use(helmet());
 app.use(limiter);
-
-mongoose.connect(DB_URL).then(() => {});
 
 app.use(router);
 
