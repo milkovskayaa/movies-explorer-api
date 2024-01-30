@@ -8,6 +8,7 @@ const NotFoundError = require('./errors/not-found');
 const { router } = require('./routes/index');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { limiter } = require('./utils/limiter');
+const { errorHandler } = require('./middlewares/errorHandler');
 
 const {
   PORT = process.env.PORT || 3000,
@@ -33,16 +34,7 @@ app.use((req, res, next) => {
 
 app.use(errorLogger);
 
-app.use((err, req, res) => {
-  const { statusCode = 500, message } = err;
-  res
-    .status(statusCode)
-    .send({
-      message: statusCode === 500
-        ? 'На сервере произошла ошибка'
-        : message,
-    });
-});
+app.use(errorHandler);
 
 app.listen(PORT, () => {
 
