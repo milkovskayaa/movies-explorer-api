@@ -4,7 +4,6 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const helmet = require('helmet');
 const { errors } = require('celebrate');
-const NotFoundError = require('./errors/not-found');
 const { router } = require('./routes/index');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { limiter } = require('./utils/limiter');
@@ -28,10 +27,6 @@ app.use(limiter);
 app.use(router);
 
 app.use(errors());
-
-app.use((req, res, next) => {
-  next(new NotFoundError('Такой страницы не существует'));
-});
 
 app.use(errorLogger);
 

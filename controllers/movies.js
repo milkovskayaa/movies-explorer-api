@@ -5,7 +5,7 @@ const { ForbiddenError } = require('../errors/forbidden');
 
 // возвращает все сохранённые текущим пользователем фильмы
 const getMovies = (req, res, next) => {
-  Movie.find({})
+  Movie.find({ owner: req.user._id })
     .then((movies) => res.status(200).send(movies))
     .catch((err) => next(err));
 };
@@ -51,9 +51,11 @@ const deleteMovie = (req, res, next) => {
     .then((movie) => {
       if (!movie) {
         next(new NotFoundError('Карточка не найдена'));
+        return;
       }
       if (movie.owner.toString() !== req.user._id) {
-        next(new ForbiddenError('Вы не можете удалять чужую карточку'));
+        next(new ForbiddenError('Вы не можете удалять чужой фильм'));
+        return;
       }
       movie.deleteOne().then(() => res.status(200).send(movie));
     })

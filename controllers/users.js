@@ -24,19 +24,25 @@ const getUserInfo = (req, res, next) => {
 // обновляет информацию о пользователе (email и имя)
 const updateProfile = (req, res, next) => {
   const { name, email } = req.body;
-  return User.findByIdAndUpdate(
-    req.user._id,
-    { name, email },
-    {
-      new: true,
-      runValidators: true,
-    },
-  )
-    .then((user) => {
-      if (!user) {
-        throw new NotFoundError('Пользователь не найден');
+  User.findOne({ email })
+    .then((foundUser) => {
+      if (foundUser && foundUser._id.toString() !== req.user._id.toString()) {
+        throw new ConflictError('Пользователь с таким email уже существует');
       }
-      return res.status(200).send(user);
+      return User.findByIdAndUpdate(
+        req.user._id,
+        { name, email },
+        {
+          new: true,
+          runValidators: true,
+        },
+      )
+        .then((user) => {
+          if (!user) {
+            throw new NotFoundError('Пользователь не найден');
+          }
+          return res.status(200).send(user);
+        });
     })
     .catch((err) => next(err));
 };
