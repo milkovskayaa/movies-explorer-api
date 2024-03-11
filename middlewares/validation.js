@@ -41,6 +41,6 @@ module.exports.createMovieValidate = celebrate({
 module.exports.updateUserValidate = celebrate({
   body: Joi.object().keys({
     name: Joi.string().min(2).max(30).required(),
-    email: Joi.string().required().pattern(patternURL),
+    email: Joi.string().email().required(),
   }),
 });
