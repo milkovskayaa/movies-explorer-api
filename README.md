@@ -18,6 +18,7 @@ https://github.com/milkovskayaa/movies-explorer-api
 - Постановка и снятие лайков на карточках.
 
 ### Стек технологий:
+- REST API
 - Node.js
 - MongoDB
 - Express.js
